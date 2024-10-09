@@ -2,6 +2,8 @@
 ### create environment:
     conda create -n "facemorphing" python=3.8.5
 
+    conda activate facemorphing
+
     conda install click requests tqdm ninja imageio-ffmpeg==0.4.3
 
     conda install imageio matplotlib
