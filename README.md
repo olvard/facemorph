@@ -1,4 +1,6 @@
 
+Clone the repo and inside it clone the stylegan2-ada-pytorch repo
+
 ### create environment:
     conda create -n "facemorphing" python=3.8.5
 
