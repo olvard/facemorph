@@ -4,7 +4,11 @@
 
     conda install click requests tqdm ninja imageio-ffmpeg==0.4.3
 
-    conda install imageio
+    conda install imageio matplotlib
+
+    conda install numpy=1.24
+
+Install pytorch using https://pytorch.org/get-started/locally/
 
 
 Download 256 resolution pretrained model:
