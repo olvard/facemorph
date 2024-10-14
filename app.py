@@ -53,7 +53,7 @@ def main():
 			# Display slider value as label
 			slider_label = ui.label(f'Steps').style('font-size: 24px; margin-top: 10px;')
 			# Slider for morph steps
-			steps_slider = ui.slider(min=1, max=10, value=5).style('width: 100%; margin: 20px 0')  # Increased slider width
+			steps_slider = ui.slider(min=1, max=200, value=5).style('width: 100%; margin: 20px 0')  # Increased slider width
 
 			def update_label():
 				slider_label.set_text(f'Steps: {steps_slider.value}')
@@ -63,7 +63,19 @@ def main():
 
 			# Morph faces function
 			async def morph_faces():
+
+
+				# Show loading effect
+				loading_label = ui.label('Morphing in progress...').style('font-size: 24px; color: yellow; margin-top: 20px;')
+				await asyncio.sleep(0.1)  # Allow UI to update
+
+				# Perform the face morphing
 				morphed_image = face_morph(face1_aligned_image.source, face2_aligned_image.source, steps_slider.value)
+
+				# Hide loading effect
+				loading_label.set_text('Morphing complete!')
+				await asyncio.sleep(1)  # Show completion message briefly
+				loading_label.set_text('')
 				
 				morph_result.set_source(morphed_image)
 				await asyncio.sleep(0.5)
