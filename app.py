@@ -13,13 +13,13 @@ def main():
 	ui.label('Face Morphing Tool').classes('text-3xl font-bold mb-8').style('text-align: center; margin-top: 20px; margin: auto;')
 
 	# Main container for the two columns (controls on left, images on right)
-	with ui.row().style('height: calc(100vh - 100px); width: 100vw; margin: auto; align-items: flex-start;'):
+	with ui.element('div').classes('flex').style('width: 70%; height: 100%; margin: auto;'):	
 		
 		# Left column: Controls and sliders
-		with ui.column().style('width: 40%; padding: 20px; align-items: center; justify-content: flex-start;'):
+		with ui.column().style('width: 50%; align-items: center; padding: 20px; justify-content: flex-start;'):
 			
 			# Face 1 upload container
-			with ui.element('div').style('position: relative; width: 100%; margin: 10px;'):
+			with ui.element('div').style('width: 100%; margin-bottom: 30px;'):
 				# Upload button for Face 1
 				ui.upload(on_upload=lambda file: handle_face1_upload(file), auto_upload=True).props('label="Choose Face 1"').style('font-size: 24px; width: 100%; height: 50px;')
 
@@ -35,7 +35,7 @@ def main():
 					face1_aligned_image.update()
 					
 			# Face 2 upload container
-			with ui.element('div').style('position: relative; width: 100%; margin: 10px;'):
+			with ui.element('div').style('width: 100%; margin-bottom: 40px; margin-top: 30px;'):
 				# Upload button for Face 2
 				ui.upload(on_upload=lambda file: handle_face2_upload(file), auto_upload=True).props('label="Choose Face 2"').style('font-size: 24px; width: 100%; height: 50px;')
 
@@ -49,11 +49,11 @@ def main():
 					await asyncio.sleep(0.5)
 					face2_aligned_image.update()
 
-			# Slider for morph steps
-			steps_slider = ui.slider(min=1, max=10, value=5).style('width: 100%; margin: 20px 0')  # Increased slider width
 
 			# Display slider value as label
-			slider_label = ui.label(f'Steps: {steps_slider.value}').style('font-size: 24px; margin-top: 10px;')
+			slider_label = ui.label(f'Steps').style('font-size: 24px; margin-top: 10px;')
+			# Slider for morph steps
+			steps_slider = ui.slider(min=1, max=10, value=5).style('width: 100%; margin: 20px 0')  # Increased slider width
 
 			def update_label():
 				slider_label.set_text(f'Steps: {steps_slider.value}')
@@ -69,15 +69,12 @@ def main():
 				await asyncio.sleep(0.5)
 				morph_result.update()
 
-
-			# Button to morph faces
-			ui.button('MORPH', on_click=morph_faces).style('font-size: 24px; margin: 20px 0;')  # Larger button text
+			# Add morph slider label
+			morph_slider_label = ui.label(f'Morph Level: ').style('font-size: 24px; margin-top: 10px;')
 
 			# Slider for morph transition, also larger
 			morph_slider = ui.slider(min=0, max=10, value=0).style('width: 100%; margin: 20px 0; ')  # Increased slider width
-
-			# Add morph slider label
-			morph_slider_label = ui.label(f'Morph Level: {morph_slider.value}').style('font-size: 24px; margin-top: 10px;')
+		
 
 			def update_morph_label():
 				morph_slider_label.set_text(f'Morph Level: {morph_slider.value}')
@@ -85,8 +82,10 @@ def main():
 			# Bind the morph slider change event to update the label
 			morph_slider.on('change', update_morph_label)
 
+		
+
 		# Right column: Display images
-		with ui.column().style('width: 60%; padding: 20px; align-items: center; justify-content: flex-start;'):
+		with ui.column().style('width: 50%; align-items: center; justify-content: flex-start;'):
 			# Row to display cropped images of both faces
 			with ui.row().style('justify-content: center; margin-top: 20px;'):
 				# Placeholder for the cropped image for Face 1
@@ -97,6 +96,9 @@ def main():
 
 			# Display morph result below
 			morph_result = ui.image().style('width: 400px; height: 400px; margin: 10px; object-fit: cover; border: 2px solid white;')  # Reserve space for the morph result
+
+						# Button to morph faces
+			ui.button('MORPH', on_click=morph_faces).style('font-size: 24px; margin: 20px 0;')  # Larger button text
 
 	
 	# Start the NiceGUI app
