@@ -1,4 +1,6 @@
 /stylegan2-ada-pytorch
+/images
+/output
 *.pkl
 *.png
 *.jpg

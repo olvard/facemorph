@@ -30,7 +30,7 @@ def align_face(input_image):
 
 	return final
 
-def face_morph(face1,face2,steps):
+def face_morph(face1,face2,steps,convert=True):
 	# Convert the PIL images to NumPy arrays
 	face1_array = np.array(face1)
 	face2_array = np.array(face2)
@@ -99,8 +99,12 @@ def face_morph(face1,face2,steps):
 	interpolated_images = interpolated_images.permute(0, 2, 3, 1).clamp(0, 255).to(torch.uint8).cpu().numpy()
 
 	# convert all images to pil image
+	
 	morphed = []
-	for img in interpolated_images:
-		morphed.append(Image.fromarray(img))
+	if convert:
+		for img in interpolated_images:
+			morphed.append(Image.fromarray(img))
+	else:
+		morphed = interpolated_images
 
 	return morphed
