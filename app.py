@@ -49,14 +49,14 @@ def main():
 					await asyncio.sleep(0.5)
 					face2_aligned_image.update()
 
+			with ui.element('div').classes('flex flex-col-reverse').style('width: 100%; align-items: center;'):
+				steps_slider = ui.slider(min=1, max=200, value=5).style('width: 100%; margin: 20px 0')  # Increased slider width
+				slider_label = ui.label(f'Steps: {steps_slider.value}').style('font-size: 24px; margin-top: 10px;')
+				
+				def update_label():
+					slider_label.set_text(f'Steps: {steps_slider.value}')
 
-			slider_label = ui.label(f'Steps: ').style('font-size: 24px; margin-top: 10px;')
-			steps_slider = ui.slider(min=1, max=200, value=5).style('width: 100%; margin: 20px 0')  # Increased slider width
-
-			def update_label():
-				slider_label.set_text(f'Steps: {steps_slider.value}')
-
-			steps_slider.on('change', update_label)
+				steps_slider.on('change', update_label)
 
 			# Morph faces function
 			async def morph_faces():
