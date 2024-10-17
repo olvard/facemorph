@@ -98,9 +98,9 @@ def face_morph(face1,face2,steps):
 
 	interpolated_images = interpolated_images.permute(0, 2, 3, 1).clamp(0, 255).to(torch.uint8).cpu().numpy()
 
-	print(type(interpolated_images[5]))
-
-	# conver to pil image
-	morphed = Image.fromarray(interpolated_images[5])
+	# convert all images to pil image
+	morphed = []
+	for img in interpolated_images:
+		morphed.append(Image.fromarray(img))
 
 	return morphed
