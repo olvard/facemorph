@@ -1,6 +1,5 @@
 /stylegan2-ada-pytorch
 /images
-/output
 /raw 
 /aligned
 *.pkl
